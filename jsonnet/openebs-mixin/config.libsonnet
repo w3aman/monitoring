@@ -8,6 +8,7 @@
       lvmLocalPV: true,
       deviceLocalPV: true,
       zfsLocalPV: true,
+      mayastor: true,
     },
     // Configuration to set which openebs component is installed. Based on this, dashboards and alert rules configuration will be set.
     openenbsComponents: {
@@ -22,6 +23,7 @@
       zfsLocalPV: $._config.casTypes.zfsLocalPV,
       npd: true,
       ndm: $._config.openenbsComponents.ndm,
+      mayastor: $._config.casTypes.mayastor,
     },
     // AlertRules configuration. If set, then rules json will be generated.
     alertRules: {

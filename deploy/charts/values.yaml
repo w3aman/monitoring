@@ -668,3 +668,28 @@ openebsMonitoringAddon:
     enabled: true
     dashboards:
       enabled: true
+
+  mayastor:
+    enabled: true
+    dashboards:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+
+      ## Endpoints of the selected service to be monitored
+      endpoints:
+        ## Name of the endpoint's service port
+        ## Mutually exclusive with targetPort
+        #  port: ""
+        port: metrics
+
+        ## HTTP path to scrape for metrics
+        #  path: /metrics
+        path: /metrics
+
+      selector:
+        matchLabels:
+          app: metrics-exporter-io-engine
+
+      namespaceSelector:
+        any: true
