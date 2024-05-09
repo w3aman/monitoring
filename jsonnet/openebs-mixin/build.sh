@@ -13,7 +13,7 @@ generateDashboards(){
 	rm -rf $dashboardsDirPath
 	mkdir -p $dashboardsDirPath
 	jsonnet -J vendor -m $dashboardsDirPath lib/dashboards.jsonnet
-	dashboardsFolder=(cStor jiva localPV npd lvmLocalPV ndm zfsLocalPV mayastor)
+	dashboardsFolder=(npd lvmLocalPV zfsLocalPV mayastor)
 	for i in ${dashboardsFolder[@]}
 	do
 	    x=`echo $i | awk '{print tolower($0)}'`
@@ -26,7 +26,7 @@ generateRules(){
 	rm -rf $rulesDirPath
 	mkdir -p  $rulesDirPath
 	jsonnet -J vendor -m $rulesDirPath lib/rules.jsonnet
-	rulesFolder=(cStor jiva volume npd lvmLocalPV)
+	rulesFolder=(volume npd lvmLocalPV)
 	for i in ${rulesFolder[@]}
 	do
 	    x=`echo $i | awk '{print tolower($0)}'`

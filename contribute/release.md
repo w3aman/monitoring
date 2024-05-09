@@ -7,17 +7,17 @@ To generate dashboards and alert rules for monitoring helm chart and release a n
 
 2. Update the dashboards and rules folder in [build.sh](../jsonnet/openebs-mixin/build.sh). The auto generated json files will be inside this folder.  
    
-   For example: If you add dashboards and alert rules for mayastor in openebs-mixin, then add mayastor as a folder name in build.sh file. 
+   For example: If you add dashboards and alert rules for Mayastor in openebs-mixin, then add mayastor as a folder name in build.sh file. 
    ```
 	generateDashboards(){
 		. . . 
-		dashboardsFolder=(cStor jiva localPV npd lvmLocalPV ndm mayastor)
+		dashboardsFolder=(npd lvmLocalPV zfsLocalPV mayastor)
 	    . . . 
 	}
 
 	generateRules(){
 		. . . 
-		rulesFolder=(cStor jiva volume npd lvmLocalPV mayastor)
+		rulesFolder=(npd lvmLocalPV zfsLocalPV mayastor)
 	    . . . 
 	}
 	```

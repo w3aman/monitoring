@@ -24,17 +24,10 @@ To install kube-prometheus stack with openebs-addons(serviceMonitors, grafana da
 	openebsMixin: (import './openebs-mixin/mixin.libsonnet') {
 		_config+:: {
 			dashboards+: {
-				cStor: $._config.openebsMonitoringAddon.cStor.dashboards,
-				jiva: $._config.openebsMonitoringAddon.jiva.dashboards,
-				localPV: $._config.openebsMonitoringAddon.lvmLocalPV.dashboards,
 				lvmLocalPV: $._config.openebsMonitoringAddon.lvmLocalPV.dashboards,
-				deviceLocalPV: $._config.openebsMonitoringAddon.deviceLocalPV.dashboards,
 			},
 			alertRules+: {
-				cStor: $._config.openebsMonitoringAddon.cStor.alertRules,
-				jiva: $._config.openebsMonitoringAddon.jiva.alertRules,
 				lvmLocalPV: $._config.openebsMonitoringAddon.lvmLocalPV.alertRules,
-				deviceLocalPV: $._config.openebsMonitoringAddon.deviceLocalPV.alertRules,
 			},
 		},
 	},
@@ -103,13 +96,13 @@ Setup Grafana dashboards and alert rules for OpenEBS monitoring.
 		mixin: (import './openebs-mixin/mixin.libsonnet'){
 		    _config+:: {
     			dashboards+: {
-    				cStor: true,
-    				jiva: false,
+    				mayastor: true,
+    				lvmLocalPV: false,
     				. . .
     			},
     			alertRules+: {
-    				cStor: true,
-    				jiva: true,
+    				mayastor: true,
+    				lvmLocalPV: true,
     				. . .
     			},
     		}

@@ -6,7 +6,7 @@ A set of Grafana dashboards and Prometheus alerts for OpenEBS that can be instal
 
 ## Status
 
-**Beta**. This repository currently supports dashboards and alerts for `cStor`, `Jiva`, `LVM LocalPV` OpenEBS storage engines.
+**Beta**. This repository currently supports dashboards and alerts for `Mayastor`, `LocalPV LVM`, `LocalPV ZFS` OpenEBS storage engines.
 This project is under active development and seeking [contributions from the community](#contributing).
 
 

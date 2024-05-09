@@ -84,8 +84,7 @@ helm install [RELEASE_NAME] openebs-monitoring/openebs-monitoring -n  [PROMETHEU
 	```console
 	kubectl get servicemonitors -n prometheus-operator -l  release="openebs-monitoring"                
 	NAME                              AGE
-	openebs-monitoring-openebs-cstor   33m
-	openebs-monitoring-openebs-jiva    33m
+	openebs-monitoring-openebs-mayastor   33m
 	```
 
 -  Verify `dashboards configmaps` are installed
@@ -93,8 +92,7 @@ helm install [RELEASE_NAME] openebs-monitoring/openebs-monitoring -n  [PROMETHEU
     ```console
 	kubectl get cm -n prometheus-operator -l release="openebs-monitoring"
 	NAME                                                           DATA   AGE
-	openebs-monitoring-openebs-cstor-pool                           1      37m
+	openebs-monitoring-openebs-diskpool                          	 1      37m
 	```
 
 - To see the dashboards, form the Grafana URL and open it in the browser
-
