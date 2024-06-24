@@ -1,6 +1,6 @@
 # openEBS Monitoring   
 
-![openebs-monitoring](images/openebs-monitoring.png)
+![monitoring](images/monitoring.png)
 
 OpenEBS monitoring written in jsonnet has two components:
 1. [**kube-prometheus stack**](https://github.com/prometheus-operator/kube-prometheus/tree/main/jsonnet/kube-prometheus)  
@@ -14,7 +14,7 @@ OpenEBS monitoring written in jsonnet has two components:
 
 	```
 	jsonnet
-	├── addons # openebs-monitoring addon
+	├── addons # monitoring addon
 	│   ├── podMonitors.libsonnet # podMonitor to be created for different cas types
 	│   ├── prometheusRules.libsonnet # create prometheusRule object which includes alert rules defined in openebs-mixin
 	│   └── serviceMonitors.libsonnet # serviceMonitor to be created for different cas types
@@ -25,7 +25,7 @@ OpenEBS monitoring written in jsonnet has two components:
 	├── jsonnetfile.lock.json # all dependencies with exact version
 	|
 	├── lib # contains code that is used in different places
-	│   └── utils.libsonnet # code which is used to create openebs-monitoring addons
+	│   └── utils.libsonnet # code which is used to create monitoring addons
 	|
 	├── main.jsonnet # entrypoint of code(openEBS Monitoring)
 	├── Makefile

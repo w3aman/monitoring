@@ -45,21 +45,21 @@ type: application
 version: 0.1.1
 appVersion: 1.0.0
 dependencies:
-  - name: openebs-monitoring
+  - name: monitoring
     version: 0.4.8
     repository: "https://openebs.github.io/monitoring/"
-    condition: openebs-monitoring.install
+    condition: monitoring.install
 ````
 
 In the file **values.yaml**, you will define your configuration for the monitoring stack.
 
-If you defined a **dependency condition** in **Chart.yaml**, you will have to define the value in that condition.  In this example, the condition name is `openebs-monitoring.install`.
+If you defined a **dependency condition** in **Chart.yaml**, you will have to define the value in that condition.  In this example, the condition name is `monitoring.install`.
 
 if you provide only the condition value, you will deploy OpenEBS monitoring stack with the default values provided in there chart.
 
 #### value.yaml (with default values)
 ````yaml
-openebs-monitoring:
+monitoring:
   install: true
 ````
 
@@ -77,7 +77,7 @@ The applications will be accessible from :
 Here the content of **values.yaml** with those settings.
 
 ````yaml
-openebs-monitoring:
+monitoring:
   install: true
 
   ## Configuration for kube-prometheus-stack subchart
@@ -201,7 +201,7 @@ Here a example of umbrella chart using external Grafana dashboards and Prometheu
 ````
 📦umbrella
  ┣ 📂charts
- ┃ ┗ 📜openebs-monitoring-0.4.9.tgz
+ ┃ ┗ 📜monitoring-0.4.9.tgz
  ┣ 📂dashboards
  ┃ ┣ 📂custom
  ┃ ┃ ┣ 📜k8s-persistence-volumes.json
@@ -236,7 +236,7 @@ Here the content of the files into templates folder.  Those files are based on t
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "openebs-monitoring.name" -}}
+{{- define "monitoring.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 50 | trimSuffix "-" }}
 {{- end }}
 
@@ -245,7 +245,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "openebs-monitoring.fullname" -}}
+{{- define "monitoring.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 26 | trimSuffix "-" }}
 {{- else }}
@@ -261,7 +261,7 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts
 */}}
-{{- define "openebs-monitoring.namespace" -}}
+{{- define "monitoring.namespace" -}}
   {{- if .Values.namespaceOverride -}}
     {{- .Values.namespaceOverride -}}
   {{- else -}}
@@ -273,16 +273,16 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "openebs-monitoring.chart" -}}
+{{- define "monitoring.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "openebs-monitoring.labels" -}}
-helm.sh/chart: {{ include "openebs-monitoring.chart" . }}
-{{ include "openebs-monitoring.selectorLabels" . }}
+{{- define "monitoring.labels" -}}
+helm.sh/chart: {{ include "monitoring.chart" . }}
+{{ include "monitoring.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -292,8 +292,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "openebs-monitoring.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "openebs-monitoring.name" . }}
+{{- define "monitoring.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "monitoring.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 release: {{ $.Release.Name | quote }}
 {{- end }}
@@ -320,7 +320,7 @@ Usage:
 
 #### dashboard-json-configmap.yaml
 ````yaml
-{{- $grafanaSidecarDashboardsLabel := index .Values "openebs-monitoring" "kube-prometheus-stack" "grafana" "sidecar" "dashboards" "label" }}
+{{- $grafanaSidecarDashboardsLabel := index .Values "monitoring" "kube-prometheus-stack" "grafana" "sidecar" "dashboards" "label" }}
 {{- $files := .Files.Glob "dashboards/**.json" }}
 {{- if $files }}
 {{- range $fileName, $fileContents := $files }}
@@ -328,12 +328,12 @@ Usage:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ lower (printf "%s-%s" (include "openebs-monitoring.fullname" $) $dashboardName) | trunc 63 | trimSuffix "-" }}
-  namespace: {{ template "openebs-monitoring.namespace" $ }}
+  name: {{ lower (printf "%s-%s" (include "monitoring.fullname" $) $dashboardName) | trunc 63 | trimSuffix "-" }}
+  namespace: {{ template "monitoring.namespace" $ }}
   labels:
     {{ $grafanaSidecarDashboardsLabel }}: "1"
-    app: {{ template "openebs-monitoring.name" $ }}-grafana
-{{ include "openebs-monitoring.labels" $ | indent 4 }}
+    app: {{ template "monitoring.name" $ }}-grafana
+{{ include "monitoring.labels" $ | indent 4 }}
 data:
   {{ $dashboardName }}.json: {{ $.Files.Get $fileName | toPrettyJson }}
 ---
@@ -350,11 +350,11 @@ data:
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ lower (printf "%s-%s" (include "openebs-monitoring.name" $) $ruleName) | trunc 63 | trimSuffix "-" }}
-namespace: {{ template "openebs-monitoring.namespace" $ }}
+  name: {{ lower (printf "%s-%s" (include "monitoring.name" $) $ruleName) | trunc 63 | trimSuffix "-" }}
+namespace: {{ template "monitoring.namespace" $ }}
 labels:
-  app: {{ template "openebs-monitoring.name" $ }}
-  {{ include "openebs-monitoring.labels" $ | indent 4 }}
+  app: {{ template "monitoring.name" $ }}
+  {{ include "monitoring.labels" $ | indent 4 }}
 spec:
   {{ $.Files.Get $fileName | indent 2 }}
 ---
@@ -409,7 +409,7 @@ You will obtain that folder structure
 ```
 📦umbrella
  ┣ 📂charts
- ┃ ┗ 📜openebs-monitoring-0.4.8.tgz
+ ┃ ┗ 📜monitoring-0.4.8.tgz
  ┣ 📂templates
  ┣ 📜Chart.lock
  ┣ 📜Chart.yaml

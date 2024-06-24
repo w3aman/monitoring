@@ -63,18 +63,18 @@
 		```
 
 
-2. **Install `openebs-monitoring` chart**
+2. **Install `monitoring` chart**
    
 	```console
 	# Helm
-	helm install -f values.yaml [RELEASE_NAME] openebs-monitoring/openebs-monitoring
+	helm install -f values.yaml [RELEASE_NAME] monitoring/monitoring
 	```
 
 #### Helm Chart install with one line
 
 ```console
 #Helm
-helm install [RELEASE_NAME] openebs-monitoring/openebs-monitoring -n  [PROMETHEUS-STACK-NAMESPACE]  --set kube-prometheus-stack.install=false,kube-prometheus-stack.grafana.sidecar.dashboards.label=[UPDATED_LABEL]
+helm install [RELEASE_NAME] monitoring/monitoring -n  [PROMETHEUS-STACK-NAMESPACE]  --set kube-prometheus-stack.install=false,kube-prometheus-stack.grafana.sidecar.dashboards.label=[UPDATED_LABEL]
 ```
 
 #### Verification
@@ -82,17 +82,17 @@ helm install [RELEASE_NAME] openebs-monitoring/openebs-monitoring -n  [PROMETHEU
 -  Verify `PodMonitors/ServiceMonitors` are installed
 
 	```console
-	kubectl get servicemonitors -n prometheus-operator -l  release="openebs-monitoring"                
+	kubectl get servicemonitors -n prometheus-operator -l  release="monitoring"                
 	NAME                              AGE
-	openebs-monitoring-openebs-mayastor   33m
+	monitoring-openebs-mayastor   33m
 	```
 
 -  Verify `dashboards configmaps` are installed
  
     ```console
-	kubectl get cm -n prometheus-operator -l release="openebs-monitoring"
+	kubectl get cm -n prometheus-operator -l release="monitoring"
 	NAME                                                           DATA   AGE
-	openebs-monitoring-openebs-diskpool                          	 1      37m
+	monitoring-openebs-diskpool                          	 1      37m
 	```
 
 - To see the dashboards, form the Grafana URL and open it in the browser

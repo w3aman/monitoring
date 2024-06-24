@@ -1,8 +1,8 @@
-# Default values for openebs-monitoring.
+# Default values for monitoring.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-## Provide a name in place of openebs-monitoring for `app:` labels
+## Provide a name in place of monitoring for `app:` labels
 ##
 nameOverride: ""
 
@@ -76,17 +76,15 @@ kube-prometheus-stack:
       ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/storage.md
       ##
       storageSpec:
-        {}
-        # volumeClaimTemplate:
-        #   metadata:
-        #     name: prom
-        #   spec:
-        #     storageClassName: mayastor-3
-        #     accessModes: ["ReadWriteOnce"]
-        #     resources:
-        #       requests:
-        #         storage: 10Gi
-        #   selector: {}
+        volumeClaimTemplate:
+          metadata:
+            name: openebs-prometheus-pv
+          spec:
+            storageClassName: openebs-hostpath
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 1Gi
 
   alertmanager:
     ## Deploy alertmanager
@@ -173,6 +171,14 @@ kube-prometheus-stack:
       - grafana-polystat-panel
       - snuids-trafficlights-panel
 
+    ## Add persistent storage for Grafana
+    persistence:
+      enabled: true
+      storageClassName: openebs-hostpath
+      accessModes:
+        - ReadWriteOnce
+      size: 1Gi
+
 ## Configuration for node-problem-detector subchart
 node-problem-detector:
   install: false
@@ -193,7 +199,7 @@ node-problem-detector:
     serviceMonitor:
       enabled: true
 
-## Configuration for installing openebs-monitoring addons
+## Configuration for installing monitoring addons
 openebsMonitoringAddon:
   lvmLocalPV:
     enabled: true

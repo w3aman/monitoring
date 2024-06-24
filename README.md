@@ -17,15 +17,15 @@ This project is under active development and seeking [contributions from the com
 Setup the monitoring helm repository.
 
 ```console
-helm repo add openebs-monitoring https://openebs.github.io/monitoring/
+helm repo add monitoring https://openebs.github.io/monitoring/
 helm repo update
 ```
 
-You can then run `helm search repo openebs-monitoring` to see the charts.
+You can then run `helm search repo monitoring` to see the charts.
 
 Install the helm chart. 
 ```
-helm install openebs-monitoring openebs-monitoring/openebs-monitoring --namespace openebs --create-namespace
+helm install monitoring monitoring/monitoring --namespace openebs --create-namespace
 ```
 
 The detailed chart documentation is available in [charts directory](/deploy/charts/README.md).

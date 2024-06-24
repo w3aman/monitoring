@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "openebs-monitoring.name" -}}
+{{- define "monitoring.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 50 | trimSuffix "-" }}
 {{- end }}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "openebs-monitoring.fullname" -}}
+{{- define "monitoring.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 26 | trimSuffix "-" }}
 {{- else }}
@@ -27,7 +27,7 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts
 */}}
-{{- define "openebs-monitoring.namespace" -}}
+{{- define "monitoring.namespace" -}}
   {{- if .Values.namespaceOverride -}}
     {{- .Values.namespaceOverride -}}
   {{- else -}}
@@ -39,16 +39,16 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "openebs-monitoring.chart" -}}
+{{- define "monitoring.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "openebs-monitoring.labels" -}}
-helm.sh/chart: {{ include "openebs-monitoring.chart" . }}
-{{ include "openebs-monitoring.selectorLabels" . }}
+{{- define "monitoring.labels" -}}
+helm.sh/chart: {{ include "monitoring.chart" . }}
+{{ include "monitoring.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -58,8 +58,8 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "openebs-monitoring.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "openebs-monitoring.name" . }}
+{{- define "monitoring.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "monitoring.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 release: {{ $.Release.Name | quote }}
 {{- end }}

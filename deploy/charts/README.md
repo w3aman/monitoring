@@ -12,7 +12,7 @@ A Helm chart for OpenEBS monitoring. This chart bootstraps OpenEBS monitoring st
 ## Get Repo Info
 
 ```console
-helm repo add openebs-monitoring https://openebs.github.io/monitoring/
+helm repo add monitoring https://openebs.github.io/monitoring/
 helm repo update
 ```
 
@@ -24,7 +24,7 @@ Please visit the [link](https://openebs.github.io/monitoring/) for install instr
 
 ```console
 # Helm
-helm install [RELEASE_NAME] openebs-monitoring/openebs-monitoring --namespace [NAMESPACE] --create-namespace
+helm install [RELEASE_NAME] monitoring/monitoring --namespace [NAMESPACE] --create-namespace
 ```
 
 _See [configuration](#configuration) below._
@@ -66,10 +66,10 @@ The following table lists the configurable parameters of the OpenEBS monitoring 
 
 You can modify different parameters by specifying the desired value in the `helm install` command by using the `--set` and/or the `--set-string` flag(s). You can modify the parameters of the [kube-prometheus-stack chart](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) by adding `kube-prometheus-stack` before the desired parameter in the `helm install` command.
 
-In the following sample command we modify `openebsMonitoringAddon.lvmLocalPV.enabled` from the openebs-monitoring chart and `kube-prometheus-stack.kubeProxy.enabled` from the kube-prometheus-stack chart to disable monitoring for lvmLocalPV and kube-proxy.
+In the following sample command we modify `openebsMonitoringAddon.lvmLocalPV.enabled` from the monitoring chart and `kube-prometheus-stack.kubeProxy.enabled` from the kube-prometheus-stack chart to disable monitoring for lvmLocalPV and kube-proxy.
 
 ```console
-helm install openebs-monitoring openebs-monitoring/openebs-monitoring --namespace openebs --create-namespace \
+helm install monitoring monitoring/monitoring --namespace openebs --create-namespace \
 	--set openebsMonitoringAddon.lvmLocalPV.enabled=false \
 	--set kube-prometheus-stack.kubeProxy.enabled=false
 ```
@@ -127,7 +127,7 @@ We can edit the npd parameters too accordingly from [here](https://artifacthub.i
 A YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-helm install <release-name> -f values.yaml --namespace openebs-monitoring openebs-monitoring/openebs-monitoring
+helm install <release-name> -f values.yaml --namespace monitoring monitoring/monitoring
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)

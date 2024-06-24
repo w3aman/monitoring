@@ -17,11 +17,11 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: {{ lower (printf "%s-%s" (include "openebs-monitoring.name" $) $ruleName) | trunc 63 | trimSuffix "-" }}
-  namespace: {{ template "openebs-monitoring.namespace" $ }}
+  name: {{ lower (printf "%s-%s" (include "monitoring.name" $) $ruleName) | trunc 63 | trimSuffix "-" }}
+  namespace: {{ template "monitoring.namespace" $ }}
   labels:
-    app: {{ template "openebs-monitoring.name" $ }}
-{{ include "openebs-monitoring.labels" $ | indent 4 }}
+    app: {{ template "monitoring.name" $ }}
+{{ include "monitoring.labels" $ | indent 4 }}
 spec:
 {{ $.Files.Get $fileName | indent 2 }}
 ---

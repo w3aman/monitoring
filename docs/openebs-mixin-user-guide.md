@@ -3,11 +3,11 @@
 ---
 ### Different scenarios to use openebs-mixin
 
-1. Install openebs-mixin with openebs-monitoring written in jsonnet.
+1. Install openebs-mixin with monitoring written in jsonnet.
 2. Install openebs-mixin in existing prometheus stack.
 
 ---  
-## Install openebs-mixin with openebs-monitoring written in jsonnet.
+## Install openebs-mixin with monitoring written in jsonnet.
 To install kube-prometheus stack with openebs-addons(serviceMonitors, grafana dashboards and alert rules).
 
 ### Prerequisite
@@ -35,8 +35,8 @@ To install kube-prometheus stack with openebs-addons(serviceMonitors, grafana da
 
 	```  
 
-2. **Install kube-prometheus stack with openebs-monitoring addons**  
-   To generate manifest to install openebs-monitoring in kubernetes cluster, you need to run [main.jsonnet](../jsonnet/main.jsonnet). To generate manifests, please follow the steps listed over [here](../jsonnet/README.md).  
+2. **Install kube-prometheus stack with monitoring addons**  
+   To generate manifest to install monitoring in kubernetes cluster, you need to run [main.jsonnet](../jsonnet/main.jsonnet). To generate manifests, please follow the steps listed over [here](../jsonnet/README.md).  
     ```
     . . .
     local config = import './config.libsonnet';
