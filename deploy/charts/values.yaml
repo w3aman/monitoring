@@ -80,6 +80,7 @@ kube-prometheus-stack:
           metadata:
             name: openebs-prometheus-pv
           spec:
+            # This storageClass is backed by openebs localpv-provisioner.
             storageClassName: openebs-hostpath
             accessModes: ["ReadWriteOnce"]
             resources:
@@ -121,13 +122,14 @@ kube-prometheus-stack:
         {}
         # volumeClaimTemplate:
         #   metadata:
-        #     name: alert
+        #     name: alert-pv
         #   spec:
-        #     storageClassName: mayastor-3
+        #     # This storageClass is backed by openebs localpv-provisioner.
+        #     storageClassName: openebs-hostpath
         #     accessModes: ["ReadWriteOnce"]
         #     resources:
         #       requests:
-        #         storage: 10Gi
+        #         storage: 1Gi
         #   selector: {}
 
   prometheusOperator:
@@ -174,10 +176,20 @@ kube-prometheus-stack:
     ## Add persistent storage for Grafana
     persistence:
       enabled: true
+      # This storageClass is backed by openebs localpv-provisioner.
       storageClassName: openebs-hostpath
       accessModes:
         - ReadWriteOnce
       size: 1Gi
+
+localpv-provisioner:
+  enabled: true
+  hostpathClass:
+    name: openebs-hostpath
+    # -- Enable default hostpath localpv StorageClass.
+    enabled: true
+  analytics:
+    enabled: true
 
 ## Configuration for node-problem-detector subchart
 node-problem-detector:
