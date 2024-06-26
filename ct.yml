@@ -6,5 +6,6 @@ chart-dirs:
 chart-repos:
   - kube-prometheus-stack=https://prometheus-community.github.io/helm-charts
   - node-problem-detector=https://charts.deliveryhero.io/
+  - localpv-provisioner=https://openebs.github.io/dynamic-localpv-provisioner
 helm-extra-args: --timeout=500s
 validate-maintainers: false
